@@ -1,0 +1,24 @@
+name: C++ CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Install g++
+      run: sudo apt-get install g++ -y
+
+    - name: Compile C++ file
+      run: g++ main.cpp -o main.exe
+
+    - name: Run Program
+      run: ./main.exe
