@@ -2,8 +2,7 @@ name: build
 
 on:
   push:
-    branches:
-      - master
+    branches: [ "master" ]
 
 jobs:
   build:
@@ -20,7 +19,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build Docker image
-        run: docker build -t mariamhamdi2023040386 .
+        run: docker build -t maryamhamdi/mariamhamdi2023040386 .
 
       - name: Push Docker image
-        run: docker push mariamhamdi2023040386
+        run: docker push maryamhamdi/mariamhamdi2023040386
