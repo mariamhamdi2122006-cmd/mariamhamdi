@@ -1,10 +1,8 @@
-name: C++ CI
+name: Build and Push Docker Image
 
 on:
   push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+    branches: ["main"]
 
 jobs:
   build:
@@ -14,11 +12,15 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Install g++
-      run: sudo apt-get install g++ -y
+    - name: Login to DockerHub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-    - name: Compile C++ file
-      run: g++ main.cpp -o main.exe
-
-    - name: Run Program
-      run: ./main.exe
+    - name: Build and Push Docker Image
+      uses: docker/build-push-action@v4
+      with:
+        context: .
+        push: true
+        tags: maryamhamdy/mariamhamdi2023040386:latest
